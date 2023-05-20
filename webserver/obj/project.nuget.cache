@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "+K6nCOVhSbAf8naC+oQULwpad2jH7Zgo4sjEyitpHXl8sIuxJtlPxjHojyhER3/DoLL6KbULV5KEscPZ18uXnA==",
+  "success": true,
+  "projectFilePath": "/home/emelito/workspace/github/webserver/webserver/webserver.csproj",
+  "expectedPackageFiles": [
+    "/home/emelito/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/home/emelito/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/home/emelito/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/home/emelito/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/home/emelito/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/home/emelito/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
