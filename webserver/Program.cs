@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ApiDbContext>(opt =>
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
