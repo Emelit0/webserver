@@ -1,4 +1,4 @@
-namespace webserver;
+namespace webserver.Dtos;
 
 public class WeatherForecast
 {
