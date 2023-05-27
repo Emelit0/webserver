@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   webapi:
+    container_name: webapi
     build: .
     ports:
       - "4000:80"
@@ -8,30 +9,56 @@ services:
       - "4002:7166"
       - "4003:5086"
     networks:
-      - app_net
+       api_net:
+          ipv4_address: 172.20.0.2
     depends_on:
       - db
     volumes:
       - app-data:/var/lib/app-data
   db:
+    container_name: db
     image: "postgres:13"
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: "postgres"
     ports:
-      - "5433:5433"
-      - "5432:5432"
+      - "4004:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
-        - db_net
+      db_net:
+        ipv4_address: 172.20.1.2
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+        PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+        PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+        - "4005:80"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+        db_net:
+            ipv4_address: 172.20.1.3
 volumes:
     db-data:
     app-data:
 networks:
-  app_net:
-    driver: bridge
-  db_net:
-    driver: bridge
+    api_net:
+      driver: bridge
+      ipam:
+         driver: default
+         config:
+           - subnet: 172.20.0.0/24
+             gateway: 172.20.0.1
+    db_net:
+      driver: bridge
+      ipam:
+        driver: default
+        config:
+         - subnet: 172.20.1.0/24
+           gateway: 172.20.1.1
     
