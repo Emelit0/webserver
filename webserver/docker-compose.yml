@@ -6,15 +6,13 @@ services:
     ports:
       - "4000:80"
       - "4001:443"
-      - "4002:7166"
-      - "4003:5086"
     networks:
        api_net:
           ipv4_address: 172.20.0.2
     depends_on:
       - db
     volumes:
-      - app-data:/var/lib/app-data
+      - app-data:/var/lib/temporary/ecommerceApi/app-data
   db:
     container_name: db
     image: "postgres:13"
@@ -23,23 +21,22 @@ services:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: "postgres"
     ports:
-      - "4004:5432"
+      - "4002:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/temporary/ecommerceApi/db-data
     networks:
       db_net:
         ipv4_address: 172.20.1.2
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
-    restart: always
     environment:
         PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
         PGADMIN_DEFAULT_PASSWORD: "admin"
     ports:
-        - "4005:80"
+        - "4003:80"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/temporary/ecommerceApi/db-data/pgadmin
     networks:
         db_net:
             ipv4_address: 172.20.1.3
