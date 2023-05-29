@@ -18,11 +18,10 @@ and can be accessed using the following credentials:
 ### Access PGAdmin to view the database
 
 1. Access the PGAdmin at http://localhost:4003
-2. Login using the following credentials:  
    `Username: admin@admin`  
    `Password: admin`
-3. Right click on the *Servers* and select *Create -> Server*
-4. Enter the following details:
-5. Name: **[Name of your Database]**
-6. Host name/address: **172.20.1.2**  Port: **5432**
-7. Add the Database credentials to build a connection
+2. Right click on the *Servers* and select *Create -> Server*
+3. Enter the following details:
+4. Name: **[Name of your Database]**
+5. Host name/address: **172.20.1.2**  Port: **5432**
+6. Add the Database credentials to build a connection
