@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using webserver.Dtos;
+using webserver.Models;
+
 
 namespace webserver.Controllers;
 
