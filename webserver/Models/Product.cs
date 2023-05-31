@@ -1,8 +1,17 @@
 namespace webserver.Dtos;
 
-public class ProductDto
+public class Product
 {
-   
+   public Product(object image)
+   {
+      Image = image;
+   }
+
+   public Product()
+   {
+      throw new NotImplementedException();
+   }
+
    public int Id { get; set; }
    
    public string Name { get; set; } = null!;
@@ -16,7 +25,5 @@ public class ProductDto
    public int SupplierId { get; set; }
    
    public virtual ICollection<UserDto> Users { get; set; } = null!;
-   
-   
-
+   public object Image { get; set; }
 }
