@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using webserver.Dtos;
 using webserver.Helpers;
+using webserver.Models;
 
 namespace webserver.Repositories;
 
-public class ProductRepository
+public class ProductRepository : IProductRepository
 {
     private readonly DataContext _context;
 
@@ -12,26 +12,33 @@ public class ProductRepository
     {
         _context = context;
     }
-    
-    public async Task<List<ProductDto>> GetAllProducts()
+
+    public async Task<List<Product>> GetAllProducts()
     {
         var products = await _context.Products.ToListAsync();
-        return products.Select(product => new ProductDto
+        return products.Select(product =>
         {
-            Id = product.Id,
-            Name = product.Name,
-            Price = product.Price,
-            Description = product.Description,
-            Image = product.Image
+            if (product != null)
+                return new Product
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Description = product.Description,
+                    Image = product.Image
+                };
+
+            throw new InvalidOperationException();
         }).ToList();
     }
-    
-    public async Task<ProductDto> GetProductById(int id)
+
+    public async Task<Product> GetProductById(int id)
     {
         var product = await _context.Products.FindAsync(id);
         if (product != null)
             return null;
-        return new ProductDto
+
+        return new Product
         {
             Id = product.Id,
             Name = product.Name,
@@ -40,39 +47,44 @@ public class ProductRepository
             Image = product.Image
         };
     }
-    
-    public async Task<ProductDto> CreateProduct(ProductDto productDto)
+
+    public async Task<Product> CreateProduct(Product? product)
     {
-        var product = new Product
+        if (product != null)
         {
-            Name = productDto.Name,
-            Price = productDto.Price,
-            Description = productDto.Description,
-            Image = productDto.Image
-        };
-        await _context.Products.AddAsync(product);
-        await _context.SaveChangesAsync();
-        return new ProductDto
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Price = product.Price,
-            Description = product.Description,
-            Image = product.Image
-        };
+            product = new Product
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                Image = product.Image
+            };
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+            return new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                Image = product.Image
+            };
+        }
+
+        throw new InvalidOperationException();
     }
-    
-    public async Task<ProductDto> UpdateProduct(int id, ProductDto productDto)
+
+    public async Task<Product> UpdateProduct(int id, Product? product)
     {
-        var product = await _context.Products.FindAsync(id);
+        product = await _context.Products.FindAsync(id);
         if (product == null)
             return null;
-        product.Name = productDto.Name;
-        product.Price = productDto.Price;
-        product.Description = productDto.Description;
-        product.Image = productDto.Image;
+        product.Name = product.Name;
+        product.Price = product.Price;
+        product.Description = product.Description;
+        product.Image = product.Image;
         await _context.SaveChangesAsync();
-        return new ProductDto
+        return new Product
         {
             Id = product.Id,
             Name = product.Name,
@@ -81,5 +93,9 @@ public class ProductRepository
             Image = product.Image
         };
     }
-}
 
+    public Task<Product> DeleteProduct(int id)
+    {
+        throw new NotImplementedException();
+    }
+}

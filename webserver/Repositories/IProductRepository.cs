@@ -1,12 +1,12 @@
-using webserver.Dtos;
+using webserver.Models;
 
 namespace webserver.Repositories;
 
 public interface IProductRepository
 {
-    Task<List<ProductDto>> GetAllProducts();
-    Task<ProductDto> GetProductById(int id);
-    Task<ProductDto> CreateProduct(ProductDto productDto);
-    Task<ProductDto> UpdateProduct(int id, ProductDto productDto);
-    Task<ProductDto> DeleteProduct(int id);
+    Task<List<Product>> GetAllProducts();
+    Task<Product> GetProductById(int id);
+    Task<Product> CreateProduct(Product product);
+    Task<Product> UpdateProduct(int id, Product product);
+    Task<Product> DeleteProduct(int id);
 }
