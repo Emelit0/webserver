@@ -1,65 +1,70 @@
+using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using webserver.Models;
 using webserver.Repositories;
 
 namespace webserver.Controllers;
 
-// controller for products
- [ApiController]
- [Route("[controller]")]
- public class ProductController : ControllerBase
- {
-     private readonly ILogger<ProductController> _logger;
-     private readonly IProductRepository _productRepository;
+[Route("api/[controller]")]
+[ApiController]
+[Produces(MediaTypeNames.Application.Json)]
+public class ProductController : MyControllerBase
+{
+    private readonly ILogger<ProductController> _logger;
+    private readonly IProductRepository _productRepository;
 
-     public ProductController(ILogger<ProductController> logger, IProductRepository productRepository)
-     {
-         _logger = logger;
-         _productRepository = productRepository;
-     } //
-     //get all products
-     [HttpGet(Name = "GetProducts")]
-     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
-     {
-         var products = await _productRepository.GetAllProducts();
-         return Ok(products);
-     }
+    public ProductController(ILogger<ProductController> logger, IProductRepository productRepository)
+    {
+        _logger = logger;
+        _productRepository = productRepository;
+    } //
 
-     //get product by id
-     [HttpGet("{id:int}", Name = "GetProduct")]
-     public async Task<ActionResult<Product>> GetProduct(int id)
-     {
-         var product = await _productRepository.GetProductById(id);
+    //get all products
+    [HttpGet]
+    [Route("[controller]GetProducts")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    {
+        var products = await _productRepository.GetAllProducts();
+        return Ok(products);
+    }
 
-         return Ok(product);
-     }
+    //get product by id
+    [HttpGet("{id:int}", Name = "GetProduct")]
+    public async Task<ActionResult<Product>> GetProduct(int id)
+    {
+        var product = await _productRepository.GetProductById(id);
 
-     //create product
-     [HttpPost(Name = "CreateProduct")]
-     public async Task<ActionResult<Product>> CreateProduct(Product product)
-     {
-         product = await _productRepository.CreateProduct(product);
-         return CreatedAtAction(nameof(GetProduct), new {id = product.Id}, product);
-     }
+        return Ok(product);
+    }
 
-     //update product
-     [HttpPut("{id:int}", Name = "UpdateProduct")]
-     public async Task<ActionResult<Product>> UpdateProduct(int id, Product product)
-     {
-         if (id != product.Id)
-         {
-             return BadRequest();
-         }
+    //create product
+    [HttpPost(Name = "CreateProduct")]
+    public async Task<ActionResult<Product>> CreateProduct(Product product)
+    {
+        product = await _productRepository.CreateProduct(product);
+        return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+    }
 
-         await _productRepository.UpdateProduct(id, product);
-         return NoContent();
-     }
+    //update product
+    [HttpPut("{id:int}", Name = "UpdateProduct")]
+    public async Task<ActionResult<Product>> UpdateProduct(int id, Product product)
+    {
+        if (id != product.Id)
+        {
+            return BadRequest();
+        }
 
-     //delete product
-     [HttpDelete("{id:int}", Name = "DeleteProduct")]
-     public async Task<ActionResult<Product>> DeleteProduct(int id)
-     {
-         await _productRepository.DeleteProduct(id);
-         return NoContent();
-     }
- }
+        await _productRepository.UpdateProduct(id, product);
+        return NoContent();
+    }
+
+    //delete product
+    [HttpDelete("{id:int}", Name = "DeleteProduct")]
+    public async Task<ActionResult<Product>> DeleteProduct(int id)
+    {
+        await _productRepository.DeleteProduct(id);
+        return NoContent();
+    }
+}
