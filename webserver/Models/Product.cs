@@ -1,4 +1,4 @@
-namespace webserver.Dtos;
+namespace webserver.Models;
 
 public class Product
 {
@@ -24,6 +24,6 @@ public class Product
    
    public int SupplierId { get; set; }
    
-   public virtual ICollection<UserDto> Users { get; set; } = null!;
+   public virtual ICollection<User> Users { get; set; } = null!;
    public object Image { get; set; }
 }

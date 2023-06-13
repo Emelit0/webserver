@@ -1,4 +1,4 @@
-using webserver.Dtos;
+using webserver.Models;
 
 namespace webserver.Helpers;
 
@@ -19,11 +19,11 @@ public class DataContext : DbContext
         options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
     }
     
-    public DbSet<ProductDto> Products { get; set; } = null!;
+    public DbSet<Product> Products { get; set; } = null!;
     
-    public DbSet<UserDto> Users { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
     
-    public DbSet<CategoryDto> Categories { get; set; } = null!;
+    public DbSet<Category> Categories { get; set; } = null!;
     
     
 }

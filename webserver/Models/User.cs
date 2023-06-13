@@ -1,4 +1,4 @@
-namespace webserver.Dtos;
+namespace webserver.Models;
 
 public class User
 {
