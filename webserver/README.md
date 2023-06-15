@@ -4,8 +4,8 @@
 
 1. build the docker image
 2. run the docker compose file
-3. access the **App** at https://localhost:4001/
-4. access the **SwaggerUi** at https://localhost:4001/swagger/index.html
+3. access the **App** at http://localhost:4000/
+4. access the **SwaggerUi** at http://localhost:4000/swagger/index.html
 
 ## Access the Database
 
