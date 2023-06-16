@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using webserver.Models;
+using webserver.Entities;
 
 
 namespace webserver.Controllers;

@@ -1,6 +1,6 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
-using webserver.Models;
+using webserver.Entities;
 using webserver.Repositories;
 
 namespace webserver.Controllers;
@@ -21,7 +21,7 @@ public class ProductController : MyControllerBase
 
     //get all products
     [HttpGet]
-    [Route("[controller]GetProducts")]
+    [Route("GetProducts")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
