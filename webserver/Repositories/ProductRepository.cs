@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using webserver.Entities;
 using webserver.Helpers;
-using webserver.Models;
 
 namespace webserver.Repositories;
 
@@ -25,7 +25,6 @@ public class ProductRepository : IProductRepository
                     Name = product.Name,
                     Price = product.Price,
                     Description = product.Description,
-                    Image = product.Image
                 };
 
             throw new InvalidOperationException();
@@ -44,7 +43,6 @@ public class ProductRepository : IProductRepository
             Name = product.Name,
             Price = product.Price,
             Description = product.Description,
-            Image = product.Image
         };
     }
 
@@ -57,7 +55,6 @@ public class ProductRepository : IProductRepository
                 Name = product.Name,
                 Price = product.Price,
                 Description = product.Description,
-                Image = product.Image
             };
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
@@ -67,7 +64,6 @@ public class ProductRepository : IProductRepository
                 Name = product.Name,
                 Price = product.Price,
                 Description = product.Description,
-                Image = product.Image
             };
         }
 
@@ -82,7 +78,6 @@ public class ProductRepository : IProductRepository
         product.Name = product.Name;
         product.Price = product.Price;
         product.Description = product.Description;
-        product.Image = product.Image;
         await _context.SaveChangesAsync();
         return new Product
         {
@@ -90,7 +85,6 @@ public class ProductRepository : IProductRepository
             Name = product.Name,
             Price = product.Price,
             Description = product.Description,
-            Image = product.Image
         };
     }
 
