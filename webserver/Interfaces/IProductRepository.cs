@@ -1,4 +1,4 @@
-using webserver.Models;
+using webserver.Entities;
 
 namespace webserver.Repositories;
 
